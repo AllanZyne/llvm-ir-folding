@@ -6,43 +6,43 @@ let outputChannel: vscode.OutputChannel;
 
 class MyFoldingRangeProvider implements vscode.FoldingRangeProvider {
     provideFoldingRanges(document: vscode.TextDocument, context: vscode.FoldingContext, token: vscode.CancellationToken): vscode.FoldingRange[] {
-		// outputChannel.appendLine('provideFoldingRanges!');
+        // outputChannel.appendLine('provideFoldingRanges!');
         return this.detectRanges(document).map(({ lineStart, lineEnd }) => new vscode.FoldingRange(lineStart, lineEnd));
     }
 
-	detectRanges(document: vscode.TextDocument) {
-		let ranges = [];
-		let text = document.getText();
+    detectRanges(document: vscode.TextDocument) {
+        let ranges = [];
+        let text = document.getText();
         let lines = text.split("\n");
 
-		let n = lines.length;
-		if (n > 1) {
-			let lastLine = 0;
-			for (let i = 1; i < n; ++i) {
-				if (lines[i].startsWith('*** ')) {
-					ranges.push({
-						lineStart: lastLine, lineEnd: i-1
-					});
-					lastLine = i;
-				}
-			}
-			ranges.push({
-				lineStart: lastLine, lineEnd: n-1
-			});
-		}
+        let n = lines.length;
+        if (n > 1) {
+            let lastLine = 0;
+            for (let i = 1; i < n; ++i) {
+                if (lines[i].startsWith('*** ')) {
+                    ranges.push({
+                        lineStart: lastLine, lineEnd: i-1
+                    });
+                    lastLine = i;
+                }
+            }
+            ranges.push({
+                lineStart: lastLine, lineEnd: n-1
+            });
+        }
 
-		return ranges;
-	}
+        return ranges;
+    }
 }
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-	
-	outputChannel = vscode.window.createOutputChannel("LLVM IR Dump Folding");
-	outputChannel.appendLine('Congratulations, your extension "llvm-ir-dump-folding" is now active!');
+    
+    outputChannel = vscode.window.createOutputChannel("LLVM IR Dump Folding");
+    outputChannel.appendLine('Congratulations, your extension "llvm-ir-dump-folding" is now active!');
 
-	vscode.languages.registerFoldingRangeProvider({ scheme: 'file', language: 'llvm' }, new MyFoldingRangeProvider());
+    vscode.languages.registerFoldingRangeProvider({ scheme: 'file', language: 'llvm' }, new MyFoldingRangeProvider());
 }
 
 // this method is called when your extension is deactivated
