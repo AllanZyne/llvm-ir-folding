@@ -2,7 +2,7 @@
   "name": "llvm-ir-dump-folding",
   "displayName": "LLVM IR dump Folding",
   "description": "",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "engines": {
     "vscode": "^1.71.0"
   },
@@ -13,8 +13,7 @@
     "onLanguage:llvm"
   ],
   "main": "./out/extension.js",
-  "contributes": {
-  },
+  "contributes": {},
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
