@@ -19,7 +19,7 @@ vsce package
 auto-incrementing version
 ```
 # major, minor, patch
-vsce package minor
+vsce publish minor
 ```
 
 ## Install

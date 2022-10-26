@@ -35,6 +35,13 @@ class MyFoldingRangeProvider implements vscode.FoldingRangeProvider {
     }
 }
 
+class MyFoldingDefinitionProvider implements vscode.DefinitionProvider {
+    provideDefinition(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken): vscode.ProviderResult<vscode.Definition | vscode.LocationLink[]> {
+        let text = document.getText();
+        let lines = text.split("\n");
+    }
+}
+
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
@@ -43,6 +50,7 @@ export function activate(context: vscode.ExtensionContext) {
     outputChannel.appendLine('Congratulations, your extension "llvm-ir-dump-folding" is now active!');
 
     vscode.languages.registerFoldingRangeProvider({ scheme: 'file', language: 'llvm' }, new MyFoldingRangeProvider());
+    vscode.languages.registerDefinitionProvider({ scheme: 'file', language: 'llvm' }, new MyFoldingDefinitionProvider())
 }
 
 // this method is called when your extension is deactivated
